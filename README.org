@@ -59,20 +59,89 @@
 
 ** Development Notes
 
+*** Building
 
-   - Packaging a Go Application for MacOS:
+    Make a directory (or folder) called =bin=, first.
 
-     - https://medium.com/@mattholt/packaging-a-go-application-for-macos-f7084b00f6b5
+**** For MacOS
 
-   - Build, notarize, and sign Golang binaries for MacOS with GitHub
-     Actions
+     - Build the binary
+       #+begin_example
+	 go build -o pdfform2csv main.go
+       #+end_example
 
-     - https://www.kencochrane.com/2020/08/01/build-and-sign-golang-binaries-for-macos-with-github-actions/
+     - Make the application bundle structure
+       #+begin_example
+	 mkdir -p bin/pdfform2csv/Contents/MacOS
+	 mkdir -p bin/pdfform2csv/Contents/Resources
+       #+end_example
 
-   - Dlgs: Dialogs for simple Go Apps
+     - Copy the binary =pdfform2csv= to
+       =bin/pdfform2csv/Contents/MacOS=
 
-     - https://pkg.go.dev/github.com/gen2brain/dlgs
+     - Run =python support/makeiconset.py support/pdfform2csv.png=
+       and copy the resulting =icns= file to
+       =bin/pdfform2csv/Contents/Resources=
 
-   - Adding Windows Resources to Go program
+     - Put the file =Info.plist= from the =support= directory in
+       =bin/pdfform2csv/Contents/=; the contents of that file are
+       something like:
+       #+begin_src xml
+	   <?xml version="1.0" encoding="UTF-8"?>
+	   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+	   <plist version="1.0">
+	   <dict>
+		   <key>CFBundleExecutable</key>
+		   <string>pdfform2csv</string>
+		   <key>CFBundleIconFile</key>
+		   <string>pdfform2csv.icns</string>
+		   <key>CFBundleIdentifier</key>
+		   <string>io.github.acaird</string>
+		   <key>NSHighResolutionCapable</key>
+		   <true/>
+		   <key>LSUIElement</key>
+		   <true/>
+	   </dict>
+	   </plist>
+        #+end_src
 
-     - https://github.com/tc-hib/go-winres
+**** For Windows
+
+     - edit the data in the =winres/= directory if needed; replacing
+       the icon files also, if needed
+
+     - Using [[https://github.com/tc-hib/go-winres][go-winres]] make the =syso= files
+
+     - build the binary
+
+       #+begin_example
+       GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -i -o bin/pdfform2csv.exe main.go
+       #+end_example
+
+**** Generic Notes
+
+
+      - Packaging a Go Application for MacOS:
+
+	- https://medium.com/@mattholt/packaging-a-go-application-for-macos-f7084b00f6b5
+
+      - Convert PNG to ICNS on Mac OS
+
+	- https://retifrav.github.io/blog/2018/10/09/macos-convert-png-to-icns/
+
+      - Build, notarize, and sign Golang binaries for MacOS with GitHub
+	Actions
+
+	- https://www.kencochrane.com/2020/08/01/build-and-sign-golang-binaries-for-macos-with-github-actions/
+
+      - Dlgs: Dialogs for simple Go Apps
+
+	- https://pkg.go.dev/github.com/gen2brain/dlgs
+
+      - Adding Windows Resources to Go program
+
+	- https://github.com/tc-hib/go-winres
+
+
+     Note that the icons tend not to work at all.  All of those steps
+     to make them seem to be a waste of time.  :shrug:
