@@ -10,7 +10,6 @@
 
    The CSV file will have the format:
 
-   | /          | <         | <         | <         | <     |
    | File       | /Field 1/ | /Field 2/ | /Field 3/ | /etc/ |
    |------------+-----------+-----------+-----------+-------|
    | file01.pdf | /value 1/ | /value 2/ |           | /etc/ |
@@ -33,6 +32,13 @@
    will be written to the same directory (folder) as the PDF files,
    and a dialog box showing you the path of the summary file will be
    shown.
+
+   It looks like this:
+
+   | MacOS                        | Windows                      |
+   | [[images/ss-welcome-mac.png]]    | [[images/ss-welcome-win.png]]    |
+   | [[images/ss-filedialog-mac.png]] | [[images/ss-filedialog-win.png]] |
+   | [[images/ss-results-mac.png]]    | [[images/ss-results-win.png]]    |
 
 
 ** The Command-line Interface
