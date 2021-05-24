@@ -1,0 +1,72 @@
+* pdfform2csv: Turn Filled PDF Forms into a CSV file
+
+  This is a small tool that lets you choose a directory that contains
+  filled PDF Form files, reads those files, and writes a CSV file with
+  the form data from each file.  The CSV file can then be opened using
+  Microsoft Excel, Google Sheets, Apache OpenOffice or Libre Office
+  Calc, or other spreadsheet or CSV reader programs.
+
+** The CSV File
+
+   The CSV file will have the format:
+
+   | /          | <         | <         | <         | <     |
+   | File       | /Field 1/ | /Field 2/ | /Field 3/ | /etc/ |
+   |------------+-----------+-----------+-----------+-------|
+   | file01.pdf | /value 1/ | /value 2/ |           | /etc/ |
+   | file02.pdf | /value 1/ | /value 2/ |           | /etc/ |
+   | file03.pdf | /value 1/ | /value 2/ |           | /etc/ |
+   | data01.pdf | /value 1/ |           | /value 3/ | /etc/ |
+
+   Where each of the /Fields/ is taken from the name of the form field
+   in the PDF file, and each of the /values/ is taken from whatever
+   the person filling the PDF file entered.  It is not necessary that
+   the PDF files all have the same form fields; that will results in
+   some columns having data and others not.
+
+** The Graphical User Interface
+
+   If you double-click the program, it will start with a short welcome
+   message; pressing OK on that will then show a file browser where
+   you should choose the directory (or folder) that contains the
+   filled PDF form files.  After you choose it the CSV summary file
+   will be written to the same directory (folder) as the PDF files,
+   and a dialog box showing you the path of the summary file will be
+   shown.
+
+
+** The Command-line Interface
+
+   You can also run the same program from the Windows Command Prompt
+   or the MacOS Terminal.app by typing the name of the program
+   followed by the path to a directory (or folder) containing the PDF
+   form files.
+
+
+** Logging and Errors
+
+   Everytime you run the program, it will write a file to =$TMPDIR= or
+   =$TMP= or =/tmp= or =/temp= called =pdfform2csv.log=.  If there are
+   problems or you need help, look at that file, or use it to [[https://github.com/acaird/pdfform2csv/issues][open an
+   issue]].
+
+
+** Development Notes
+
+
+   - Packaging a Go Application for MacOS:
+
+     - https://medium.com/@mattholt/packaging-a-go-application-for-macos-f7084b00f6b5
+
+   - Build, notarize, and sign Golang binaries for MacOS with GitHub
+     Actions
+
+     - https://www.kencochrane.com/2020/08/01/build-and-sign-golang-binaries-for-macos-with-github-actions/
+
+   - Dlgs: Dialogs for simple Go Apps
+
+     - https://pkg.go.dev/github.com/gen2brain/dlgs
+
+   - Adding Windows Resources to Go program
+
+     - https://github.com/tc-hib/go-winres
